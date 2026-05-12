@@ -1,0 +1,17 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local tool state
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+
+# Temporary output
+tmp/
+temp/
+*.log
+
