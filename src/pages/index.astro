@@ -1,121 +1,116 @@
 ---
 import '../styles/global.css';
-const githubSvg = `<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.2 1.87.86 2.33.65.07-.52.28-.86.51-1.06-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.26.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.06-.01 1.92-.01 2.18 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>`;
-const arrowSvg = `<svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
-const sparklesSvg = `<svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5 11 7l4.5 1.5L11 10l-1.5 4.5L8 10 3.5 8.5 8 7z"/><path d="M17 12l.7 2.3L20 15l-2.3.7L17 18l-.7-2.3L14 15l2.3-.7z"/></svg>`;
-const cpuSvg = `<svg aria-hidden="true" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>`;
-const layersSvg = `<svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>`;
-const workflowSvg = `<svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18"/><path d="M7 5v14"/><path d="M17 5v14"/><path d="M7 12h10"/></svg>`;
-const shieldSvg = `<svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 20 5v6c0 5-3.5 9.5-8 11-4.5-1.5-8-6-8-11V5l8-3Z"/><path d="m9 12 2 2 4-5"/></svg>`;
+
+const steps = ['Petición', 'Investigación mínima', 'Decisión', 'PRP Lite', 'Prompt XML', 'Validación'];
+const cards = [
+  ['Contexto mínimo', 'Separa hechos, inferencias, dudas y decisiones antes de pedir código.'],
+  ['Alcance cerrado', 'Define qué puede tocar el agente, qué no debe tocar y cómo revisar el diff.'],
+  ['Validación clara', 'Convierte tests, build, lint y smoke checks en criterios de terminado.'],
+];
 ---
 
 <html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PRP Lite — OpenAI-style landing</title>
+    <title>PRP Lite — Razonar primero. Ejecutar después.</title>
     <meta name="description" content="PRP Lite convierte ideas, bugs e issues en decisiones claras, planes cortos y prompts XML ejecutables." />
-    <style>
-      :global(body){background:#020617;color:#e2e8f0;font-family:'Inter',system-ui,sans-serif;margin:0}
-      :global(*){box-sizing:border-box}
-      :global(.wrap){max-width:1180px;margin:0 auto;padding:32px 24px 72px}
-      :global(.grid-hero){display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:72px 0}
-      :global(.glass){background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(18px)}
-      :global(.pill){display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 12px}
-      :global(.btn){display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 18px;text-decoration:none;font-size:14px;font-weight:700}
-      :global(.btn-dark){background:#fff;color:#020617}
-      :global(.btn-dark:hover){background:#e5e7eb}
-      :global(.btn-ghost){background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.1)}
-      :global(.btn-ghost:hover){background:rgba(255,255,255,.09)}
-      :global(.hero-title){font-size:clamp(3rem,7vw,5.9rem);line-height:.95;letter-spacing:-.04em;margin:16px 0 18px;max-width:11ch;color:#fff;font-family:'Plus Jakarta Sans','Inter',sans-serif}
-      :global(.muted){color:#94a3b8}
-      :global(.lead){font-size:18px;line-height:1.8;max-width:60ch;color:#cbd5e1}
-      :global(.cards){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px}
-      :global(.card){border-radius:24px;padding:24px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
-      :global(.card h2){margin:16px 0 10px;font-size:18px;color:#fff;font-family:'Plus Jakarta Sans','Inter',sans-serif}
-      :global(.card p){margin:0;color:#cbd5e1;line-height:1.75;font-size:14px}
-      :global(.flow){display:grid;gap:10px}
-      :global(.step){display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:rgba(2,6,23,.35);border:1px solid rgba(255,255,255,.08)}
-      :global(.num){display:grid;place-items:center;width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.1);color:#fff;font-weight:700}
-      :global(.topbar){display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-radius:999px}
-      :global(.section){margin-top:20px}
-      :global(.bigpanel){border-radius:32px;padding:28px}
-      :global(.small){font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-      :global(.iconbox){display:grid;place-items:center;width:44px;height:44px;border-radius:16px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.2);color:#86efac}
-      :global(.accent-panel){border-radius:28px;padding:28px;background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03))}
-      @media (max-width: 900px){:global(.grid-hero),:global(.cards){grid-template-columns:1fr}:global(.hero-title){max-width:none}}
-    </style>
   </head>
   <body>
-    <main class="wrap">
+    <main class="shell">
       <header class="topbar glass">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div class="iconbox" set:html={sparklesSvg}></div>
-          <div>
-            <div style="font-weight:700;color:#fff">PRP Lite</div>
-            <div class="muted" style="font-size:12px">ChatGPT primero · agente después</div>
-          </div>
-        </div>
-        <a class="btn btn-ghost" href="https://github.com/YampiSLabs/PRP-LITE" target="_blank" rel="noreferrer"><span set:html={githubSvg}></span> GitHub</a>
+        <a class="brand" href="/PRP-LITE/">
+          <span class="mark">✦</span>
+          <span><strong>PRP Lite</strong><small>ChatGPT primero · agente después</small></span>
+        </a>
+        <a class="button ghost" href="https://github.com/YampiSLabs/PRP-LITE" target="_blank" rel="noreferrer">GitHub</a>
       </header>
 
-      <section class="grid-hero">
+      <section class="hero">
         <div>
-          <div class="pill glass small" style="color:#86efac" set:html={cpuSvg}>Carpeta plana de razonamiento</div>
-          <h1 class="hero-title">Convierte ruido en una tarea ejecutable.</h1>
-          <p class="lead">PRP Lite usa Markdown para ordenar contexto, cerrar decisiones y entregar prompts XML compactos a otro agente. Menos ambigüedad. Más ejecución.</p>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px">
-            <a href="#workflow" class="btn btn-dark">Ver flujo <span set:html={arrowSvg}></span></a>
-            <a href="#files" class="btn btn-ghost">Explorar archivos <span set:html={workflowSvg}></span></a>
+          <p class="eyebrow glass">Framework ligero para agentes</p>
+          <h1>Convierte ruido en una tarea ejecutable.</h1>
+          <p class="lead">PRP Lite ordena una idea, bug o feature antes de pasarla a un agente. Primero cierra problema, contexto, decisión, alcance y validación. Después genera un prompt XML compacto.</p>
+          <div class="actions">
+            <a href="#workflow" class="button primary">Ver flujo →</a>
+            <a href="#stack" class="button ghost">Qué incluye</a>
           </div>
         </div>
-        <div class="glass bigpanel">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
-            <div>
-              <div style="font-weight:700;color:#fff">Flujo central</div>
-              <div class="muted" style="font-size:12px">Desde idea hasta validación</div>
-            </div>
-            <div class="pill" style="font-size:12px;color:#86efac;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2)">OpenAI style</div>
-          </div>
-          <div class="flow">
-            <div class="step"><div class="num">1</div><div>Idea / issue / bug</div></div>
-            <div class="step"><div class="num">2</div><div>Investigación mínima</div></div>
-            <div class="step"><div class="num">3</div><div>PRP Lite</div></div>
-            <div class="step"><div class="num">4</div><div>Decisión y plan corto</div></div>
-            <div class="step"><div class="num">5</div><div>Prompt XML final</div></div>
-            <div class="step"><div class="num">6</div><div>Agente ejecutor + validación</div></div>
-          </div>
-        </div>
+
+        <aside class="panel glass">
+          <div class="panel-title"><strong>Flujo PRP Lite</strong><span>limpio y directo</span></div>
+          <ol class="steps">
+            {steps.map((step, index) => <li><b>{String(index + 1).padStart(2, '0')}</b><span>{step}</span></li>)}
+          </ol>
+        </aside>
       </section>
 
-      <section class="cards" id="files">
-        <article class="card">
-          <div class="iconbox" style="width:48px;height:48px" set:html={layersSvg}></div>
-          <h2>Qué resuelve</h2>
-          <p>Tareas con objetivo borroso, alcance inflado o validación ausente.</p>
-        </article>
-        <article class="card">
-          <div class="iconbox" style="width:48px;height:48px" set:html={workflowSvg}></div>
-          <h2>Qué contiene</h2>
-          <p>AGENTS.md, plantillas, checklists y ejemplo. Todo listo para ChatGPT o agentes externos.</p>
-        </article>
-        <article class="card">
-          <div class="iconbox" style="width:48px;height:48px" set:html={shieldSvg}></div>
-          <h2>Qué produce</h2>
-          <p>Decisiones cerradas, contexto mínimo, alcance permitido y validación concreta.</p>
-        </article>
+      <section class="cards" id="stack">
+        {cards.map(([title, body]) => (
+          <article class="card glass">
+            <span class="mark small">✦</span>
+            <h2>{title}</h2>
+            <p>{body}</p>
+          </article>
+        ))}
       </section>
 
-      <section id="workflow" class="section grid-hero" style="grid-template-columns:.85fr 1.15fr; padding-top:28px">
-        <div class="glass bigpanel">
-          <h2 style="margin:0;color:#fff;font-size:28px;font-family:'Plus Jakarta Sans','Inter',sans-serif">Uso recomendado</h2>
-          <p class="lead" style="font-size:16px;margin-top:12px">Sube los Markdown a tu carpeta de ChatGPT, usa AGENTS.md o 00_INSTRUCTIONS.md y pide primero el PRP Lite.</p>
-        </div>
-        <div class="accent-panel glass">
-          <div style="display:flex;align-items:center;gap:10px;font-weight:700;color:#fff" set:html={sparklesSvg}>Estilo OpenAI</div>
-          <p class="lead" style="font-size:16px;margin-top:12px">Fondo oscuro, contraste limpio, bordes suaves, tipografía grande y foco en una sola idea: reducir ambigüedad antes de delegar ejecución.</p>
+      <section class="workflow glass" id="workflow">
+        <p class="eyebrow inline">Uso recomendado</p>
+        <h2>Razonar primero. Compactar después. Ejecutar solo cuando esté claro.</h2>
+        <div class="workflow-grid">
+          <p><strong>1.</strong> Investiga lo mínimo para no inventar archivos, APIs ni comandos.</p>
+          <p><strong>2.</strong> Cierra enfoque, alcance, riesgos aceptados y validación mínima.</p>
+          <p><strong>3.</strong> Entrega un prompt XML con tarea, contexto, scope, restricciones, pasos y output.</p>
         </div>
       </section>
     </main>
   </body>
 </html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(html) { scroll-behavior: smooth; background: #050505; }
+  :global(body) {
+    min-height: 100vh; margin: 0; color: #f5f5f0;
+    background: radial-gradient(circle at top left, rgba(68,207,157,.18), transparent 34rem), radial-gradient(circle at 85% 12%, rgba(255,255,255,.12), transparent 26rem), linear-gradient(180deg,#050505 0%,#10100f 48%,#050505 100%);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  :global(a) { color: inherit; }
+  .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 24px 0 72px; }
+  .glass { border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.055); box-shadow: 0 24px 90px rgba(0,0,0,.34); backdrop-filter: blur(22px); }
+  .topbar, .brand, .button, .steps li { display: flex; align-items: center; }
+  .topbar { justify-content: space-between; gap: 16px; border-radius: 999px; padding: 12px 14px; }
+  .brand { gap: 12px; text-decoration: none; }
+  .brand strong { display: block; color: #fff; }
+  .brand small { display: block; margin-top: 2px; color: #a3a39c; font-size: 12px; }
+  .mark { display: inline-grid; place-items: center; width: 42px; height: 42px; flex: 0 0 auto; border-radius: 15px; color: #9df2c9; background: rgba(157,242,201,.1); border: 1px solid rgba(157,242,201,.2); }
+  .mark.small { width: 48px; height: 48px; border-radius: 18px; }
+  .button { gap: 10px; border-radius: 999px; padding: 13px 18px; text-decoration: none; font-size: 14px; font-weight: 700; transition: transform .16s ease, background .16s ease; }
+  .button:hover { transform: translateY(-1px); }
+  .button.primary { color: #050505; background: #f5f5f0; }
+  .button.ghost { color: #f5f5f0; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+  .hero { display: grid; grid-template-columns: minmax(0,1.08fr) minmax(340px,.92fr); gap: 36px; align-items: center; padding: 88px 0 40px; }
+  .eyebrow { width: fit-content; margin: 0 0 18px; border-radius: 999px; padding: 8px 12px; color: #9df2c9; font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .eyebrow.inline { display: inline-flex; background: rgba(157,242,201,.08); }
+  h1, h2 { margin: 0; color: #fff; font-family: 'Plus Jakarta Sans','Inter',system-ui,sans-serif; letter-spacing: -.055em; }
+  h1 { max-width: 10.4ch; font-size: clamp(3.4rem,8vw,6.8rem); line-height: .9; }
+  h2 { font-size: clamp(2rem,4vw,3.5rem); line-height: .96; }
+  .lead { max-width: 62ch; margin: 24px 0 0; color: #d2d2cb; font-size: 18px; line-height: 1.75; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .panel, .card, .workflow { border-radius: 30px; padding: 26px; }
+  .panel-title { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 18px; color: #fff; }
+  .panel-title span { color: #9df2c9; font-size: 12px; font-weight: 700; }
+  .steps { display: grid; gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .steps li { gap: 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 14px 16px; background: rgba(0,0,0,.24); }
+  .steps b { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 999px; color: #fff; background: rgba(255,255,255,.1); }
+  .cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin-top: 18px; }
+  .card h2 { margin-top: 18px; font-size: 20px; letter-spacing: -.03em; }
+  .card p, .workflow p { color: #c8c8c1; line-height: 1.7; }
+  .workflow { margin-top: 18px; }
+  .workflow-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; margin-top: 24px; }
+  .workflow-grid p { margin: 0; border-radius: 22px; padding: 18px; background: rgba(0,0,0,.2); border: 1px solid rgba(255,255,255,.08); }
+  .workflow-grid strong { color: #fff; }
+  @media (max-width: 900px) { .hero, .cards, .workflow-grid { grid-template-columns: 1fr; } h1 { max-width: none; } }
+  @media (max-width: 580px) { .shell { width: min(100% - 22px,1180px); padding-top: 12px; } .topbar { align-items: flex-start; border-radius: 26px; flex-direction: column; } .hero { padding-top: 54px; } .panel, .card, .workflow { border-radius: 24px; padding: 20px; } }
+</style>
