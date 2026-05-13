@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PRP Lite — ChatGPT como capa de razonamiento</title>
+    <meta
+      name="description"
+      content="PRP Lite convierte ideas, bugs e issues en decisiones claras, planes cortos y prompts XML ejecutables."
+    />
+    <meta name="theme-color" content="#5b21b6" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b1020;
+        --card: rgba(15, 23, 42, 0.72);
+        --line: rgba(148, 163, 184, 0.2);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #a855f7;
+        --accent-2: #22c55e;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(168, 85, 247, 0.22), transparent 35%),
+          radial-gradient(circle at right, rgba(34, 197, 94, 0.12), transparent 28%),
+          var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 20px 72px; }
+      header {
+        display: flex; justify-content: space-between; gap: 16px; align-items: center; flex-wrap: wrap;
+        margin-bottom: 56px;
+      }
+      .brand { display: flex; gap: 14px; align-items: center; text-decoration: none; color: inherit; }
+      .logo {
+        width: 52px; height: 52px; border-radius: 16px;
+        background: linear-gradient(135deg, var(--accent), #7c3aed 55%, #22c55e);
+        box-shadow: 0 12px 40px rgba(168, 85, 247, 0.28);
+      }
+      .eyebrow { color: var(--muted); font-size: 0.9rem; letter-spacing: 0.04em; text-transform: uppercase; }
+      h1 { font-size: clamp(2.8rem, 7vw, 5.5rem); line-height: 0.95; margin: 10px 0 18px; max-width: 10ch; }
+      .lead { font-size: 1.15rem; line-height: 1.7; color: #cbd5e1; max-width: 60ch; }
+      .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: start; }
+      .panel {
+        background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 26px;
+        box-shadow: 0 24px 90px rgba(0,0,0,0.28); backdrop-filter: blur(14px);
+      }
+      .buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; padding: 14px 18px; border-radius: 14px;
+        text-decoration: none; font-weight: 700; border: 1px solid transparent;
+      }
+      .btn.primary { background: linear-gradient(135deg, var(--accent), #7c3aed); color: white; }
+      .btn.secondary { background: rgba(255,255,255,0.04); color: var(--text); border-color: var(--line); }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; margin-top: 28px; }
+      .card h3 { margin: 0 0 10px; font-size: 1.05rem; }
+      .card p, li { color: var(--muted); line-height: 1.65; }
+      ul { padding-left: 18px; margin: 0; }
+      code { background: rgba(148,163,184,0.12); padding: 2px 6px; border-radius: 8px; }
+      .flow { display: grid; gap: 10px; }
+      .step { padding: 14px 16px; border-radius: 14px; background: rgba(2,6,23,0.32); border: 1px solid var(--line); }
+      .step strong { color: #fff; }
+      .footer { margin-top: 40px; color: var(--muted); font-size: 0.95rem; }
+      @media (max-width: 900px) {
+        .hero, .grid { grid-template-columns: 1fr; }
+        h1 { max-width: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a class="brand" href="#top">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <div class="eyebrow">PRP Lite</div>
+            <strong>ChatGPT first. Agent after.</strong>
+          </div>
+        </a>
+        <a class="btn secondary" href="https://github.com/YampiSLabs/PRP-LITE" target="_blank" rel="noreferrer">Ver en GitHub</a>
+      </header>
+
+      <section class="hero" id="top">
+        <div>
+          <div class="eyebrow">Carpeta plana de razonamiento</div>
+          <h1>Convierte ruido en una tarea ejecutable.</h1>
+          <p class="lead">
+            PRP Lite usa Markdown para ordenar contexto, cerrar decisiones y entregar prompts XML compactos a otro agente.
+            Menos ambigüedad, menos contexto perdido, más ejecución.
+          </p>
+          <div class="buttons">
+            <a class="btn primary" href="#workflow">Ver flujo</a>
+            <a class="btn secondary" href="#files">Explorar archivos</a>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="eyebrow">Flujo central</div>
+          <div class="flow" style="margin-top: 14px;">
+            <div class="step"><strong>1.</strong> Idea / issue / bug</div>
+            <div class="step"><strong>2.</strong> Investigación mínima</div>
+            <div class="step"><strong>3.</strong> PRP Lite</div>
+            <div class="step"><strong>4.</strong> Decisión y plan corto</div>
+            <div class="step"><strong>5.</strong> Prompt XML final</div>
+            <div class="step"><strong>6.</strong> Agente ejecutor + validación</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid" id="files">
+        <article class="panel card">
+          <h3>Qué resuelve</h3>
+          <p>
+            Tareas con objetivo borroso, alcance inflado o validación ausente. PRP Lite fuerza la conversación correcta antes de escribir código.
+          </p>
+        </article>
+        <article class="panel card">
+          <h3>Qué contiene</h3>
+          <p>
+            <code>AGENTS.md</code>, plantillas, checklists y un ejemplo. Todo pensado para subirlo a ChatGPT o a otro agente.
+          </p>
+        </article>
+        <article class="panel card">
+          <h3>Qué produce</h3>
+          <p>
+            Decisiones cerradas, contexto mínimo, alcance permitido, zonas prohibidas y validación concreta.
+          </p>
+        </article>
+      </section>
+
+      <section class="panel" id="workflow" style="margin-top: 18px;">
+        <div class="eyebrow">Uso recomendado</div>
+        <ul>
+          <li>Sube los archivos Markdown a tu carpeta de ChatGPT.</li>
+          <li>Usa <code>AGENTS.md</code> o <code>00_INSTRUCTIONS.md</code> como instrucciones del proyecto.</li>
+          <li>Pega la issue, bug o feature con el contexto mínimo.</li>
+          <li>Pide primero el PRP Lite y no el prompt final hasta cerrar decisiones.</li>
+        </ul>
+      </section>
+
+      <p class="footer">
+        Hecho para equipos que quieren pensar mejor antes de delegar ejecución.
+      </p>
+    </div>
+  </body>
+</html>
