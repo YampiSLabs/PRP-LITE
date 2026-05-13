@@ -13,5 +13,8 @@ Desktop.ini
 # Temporary output
 tmp/
 temp/
+dist/
+node_modules/
 *.log
+src/env.d.ts
 
