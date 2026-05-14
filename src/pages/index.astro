@@ -15,9 +15,10 @@ const cards = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PRP Lite — Razonar primero. Ejecutar después.</title>
     <meta name="description" content="PRP Lite convierte ideas, bugs e issues en decisiones claras, planes cortos y prompts XML ejecutables." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="bg-openai-light text-gray-800 dark:bg-openai-darker dark:text-gray-200 min-h-screen selection:bg-openai-green selection:text-white transition-colors duration-200">
-    <div class="max-w-4xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-16">
+    <main class="max-w-4xl mx-auto px-6 py-12 md:py-20 flex flex-col gap-16">
       
       <header class="flex items-center justify-between">
         <a class="flex items-center gap-3 no-underline group" href="/PRP-LITE/">
@@ -33,7 +34,7 @@ const cards = [
       </header>
 
       <section class="flex flex-col gap-6 md:gap-8 items-start">
-        <span class="inline-block px-3 py-1 rounded-full bg-green-100 text-openai-green dark:bg-openai-green/10 dark:text-openai-green text-xs font-semibold tracking-wide uppercase">Framework ligero para agentes</span>
+        <span class="inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100 text-xs font-semibold tracking-wide uppercase">Framework ligero para agentes</span>
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white tracking-tight max-w-3xl">
           Convierte ruido en una tarea ejecutable.
         </h1>
@@ -41,7 +42,7 @@ const cards = [
           PRP Lite ordena una idea, bug o feature antes de pasarla a un agente. Primero cierra problema, contexto, decisión, alcance y validación. Después genera un prompt XML compacto.
         </p>
         <div class="flex flex-wrap gap-4 mt-4">
-          <a href="#workflow" class="px-6 py-3 rounded-md bg-openai-green text-white font-medium hover:bg-opacity-90 transition-colors shadow-sm">Ver flujo →</a>
+          <a href="#workflow" class="px-6 py-3 rounded-md bg-openai-green text-gray-900 font-bold hover:bg-opacity-90 transition-colors shadow-sm">Ver flujo →</a>
           <a href="#stack" class="px-6 py-3 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-openai-dark transition-colors font-medium">Qué incluye</a>
         </div>
       </section>
@@ -84,9 +85,9 @@ const cards = [
         </div>
       </section>
       
-      <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-500">
+      <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-600 dark:text-gray-400">
         Hecho para equipos que quieren pensar mejor antes de delegar ejecución.
       </footer>
-    </div>
+    </main>
   </body>
 </html>
